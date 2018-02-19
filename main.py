@@ -98,6 +98,10 @@ class Node():
         self.parent = parent
         self.manhattanDistance = self.__getManhatanDistance()
         self.height = height
+        self.heuristic = self.getHeuristics()
+
+    def getHeuristics(self):
+        return self.manhattanDistance + self.height
 
     def getPossibleChildren(self):
         """Possible children of the node."""
@@ -122,9 +126,8 @@ class Node():
                     distance = getValueDistanceInStates(number, childState, GOAL_STATE)
                     childManhattanDistance += distance
 
-                if (found[0].height + found[0].manhattanDistance) > (self.height + 1 + childManhattanDistance):
-                    found.parent = self
-
+                if (found[0].height + found[0].manhattanDistance) > (self.height + 1 + childManhattanDistance) and found[0].parent is not None:
+                    found[0].parent = self
         return children
 
     def __getManhatanDistance(self):
@@ -162,17 +165,19 @@ def startSearch(initialState):
         # Add children to open, TIP: extend === concat
         OPEN.extend(children)
 
-        sorted(OPEN, key=lambda node: node.height + node.manhattanDistance, reverse=True)
+        # print("Length OPEN: %s" % len(OPEN))
+        OPEN.sort(key=lambda node: node.heuristic)
+        # sorted(OPEN, key=lambda node: node.height + node.manhattanDistance)
         # print('CLOSED')
         # for node in OPEN:
-        #     print(node.manhattanDistance + node.height)
+            # print(node.heuristic)
         # Reorder list open of the values (increasing) that have better f^
 
 
 INITIAL_STATE = [
-    [1,8,3],
-    [2,4,5],
-    [0,7,6]
+    [1, 3, 2],
+    [0, 8, 4],
+    [7, 6, 5]
 ]
 
 startSearch(INITIAL_STATE)
