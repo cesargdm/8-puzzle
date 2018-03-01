@@ -38,7 +38,7 @@ For example, if x=(a,b)x=(a,b) and y=(c,d)y=(c,d), the Manhattan distance betwee
   |a−c|+|b−d|
 
 ## Results 
-After implementing the algorithm we saw that if we tried really hard to mix the numbers the program took a lot of time to find the answer. In some cases we even stopped the programm because it took too long, specially if we tried to print each iteration.
+After implementing the algorithm we saw that if we tried really hard to mix the numbers the program took a lot of time to find the answer. In some cases, we even stopped the programm because it took too long, specially if we tried to print each iteration.
 
 ## Conclusions
 The time complexity depends on the heuristic function and is found to be exponential O(bd)O(bd) where b is the branching factor and d is the distance from source to destination.
