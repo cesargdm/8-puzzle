@@ -1,8 +1,9 @@
-import copy
+import copy # Used to copy arrays rather than references
 
 OPEN = []  # Closed nodes
 CLOSED = []  # Open nodes
 
+# Define the desired state
 GOAL_STATE = [
     [1, 2, 3],
     [8, 0, 4],
@@ -143,23 +144,29 @@ class Node():
 def startSearch(initialState):
     """Main program."""
     initialNode = Node(initialState, None, 0)
+
+    # Set the initial node into open
     OPEN.append(initialNode)
 
+    # Validate open is valid
     if not OPEN:
         print('Failure, shame on you')
         exit()
 
+    # Run loop while open has nodes in it
     while len(OPEN) > 0:
         Si = OPEN[0]
-        del OPEN[0]
+        del OPEN[0] # Remove open of 0 since we have it in Si
 
-        CLOSED.append(Si)
+        CLOSED.append(Si) # Add Si to closed
 
+        # Check if we have arrived to the desired state
         if Si.state == GOAL_STATE:
             print('FOUND GOAL STATE:')
             print('Height: %s' % Si.height)
-            printParentsState(Si)
+            printParentsState(Si) # Print the parent state
 
+        # If we're not done calculate all posible children of Si
         children = Si.getPossibleChildren()
 
         # Add children to open, TIP: extend === concat
@@ -174,10 +181,12 @@ def startSearch(initialState):
         # Reorder list open of the values (increasing) that have better f^
 
 
+# Define our initial state
 INITIAL_STATE = [
     [1, 3, 2],
     [0, 8, 4],
     [7, 6, 5]
 ]
 
+# Call function to start search
 startSearch(INITIAL_STATE)
